@@ -45,7 +45,7 @@ jobs:
         with:
        # chore: release version 2023.4
        #   ref: 3fd66ee9d94ae2673bff0867eeda5fadfd7a8dde
-          ref: /refs/tags/v2023.4
+          ref: refs/tags/v2023.4
       # This step creates the Checkmarx One scan
       - name: Checkmarx One scan
         uses: checkmarx/ast-github-action@main
