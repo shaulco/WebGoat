@@ -6,7 +6,7 @@ on:
       - v*
 jobs:
   sonar_analyis:
-    if: github.repository == 'WebGoat/WebGoat'
+#    if: github.repository == 'WebGoat/WebGoat'
     name: Analyze WebGoat
     runs-on: ubuntu-latest
     environment:
