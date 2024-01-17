@@ -1,4 +1,4 @@
-name: Sonar Analysis
+name: CxONE results in Sonarqube
 on:
   workflow_dispatch:
   push:
