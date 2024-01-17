@@ -1,0 +1,51 @@
+name: Sonar Analysis
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*
+jobs:
+  sonar_analyis:
+#    if: github.repository == 'WebGoat/WebGoat'
+    name: Analyze WebGoat
+    runs-on: ubuntu-latest
+    environment:
+      name: sonar_test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          architecture: x64
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3.2.6
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: "Set labels for ${{ github.ref }}"
+        run: |
+          echo "WEBGOAT_TAG_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+          WEBGOAT_MAVEN_VERSION=${{ github.ref_name }}
+          echo "WEBGOAT_MAVEN_VERSION=${WEBGOAT_MAVEN_VERSION:1}" >> $GITHUB_ENV
+#      - name: Build with Maven
+#        run: |
+#          mvn --no-transfer-progress versions:set -DnewVersion=${{ env.WEBGOAT_MAVEN_VERSION }}
+#          mvn --no-transfer-progress install -DskipTests
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B -DskipTests verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=uacdt_WebGoat -Dsonar.host.url=${{ env.SONAR_HOST_URL }} -Dsonar.organization=uacdt
