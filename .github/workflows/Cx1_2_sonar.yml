@@ -61,5 +61,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: https://sonarcloud.io # ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B -DskipTests verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=uacdt_WebGoat -Dsonar.host.url=${{ env.SONAR_HOST_URL }} -Dsonar.organization=uacdt -Dsonar.externalIssuesReportPaths=cx_result_sonar.json
