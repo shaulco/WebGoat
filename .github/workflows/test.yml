@@ -4,6 +4,7 @@ on:
         paths-ignore:
             - 'LICENSE'
             - 'docs/**'
+    workflow_dispatch:
     push:
         tags-ignore:
             - 'v*'
