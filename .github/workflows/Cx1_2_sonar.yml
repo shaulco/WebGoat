@@ -62,4 +62,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io # ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B -DskipTests verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shaulco_WebGoat -Dsonar.host.url=${{ env.SONAR_HOST_URL }} -Dsonar.organization=shaulco -Dsonar.externalIssuesReportPaths=cx_result_sonar.json
+        run: [4:06 PM] Margarita Levitm
+mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=<sonar_project_key> -Dsonar.organization=<sonar_organization> -Dsonar.externalIssuesReportPaths=./cx_result_sonar.json -v
